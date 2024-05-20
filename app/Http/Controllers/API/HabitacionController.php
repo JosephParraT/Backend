@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Habitacion;
 
 class HabitacionController extends Controller
 {
@@ -12,7 +13,8 @@ class HabitacionController extends Controller
      */
     public function index()
     {
-        //
+        $habitaciones = Habitacion::all();
+        return response()->json($habitaciones);
     }
 
     /**
@@ -20,7 +22,8 @@ class HabitacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $habitacion = Habitacion::create($request->all());
+        return response()->json($habitacion, 201);
     }
 
     /**
@@ -28,7 +31,8 @@ class HabitacionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $habitacion = Habitacion::findOrFail($id);
+        return response()->json($habitacion);
     }
 
     /**
@@ -36,7 +40,9 @@ class HabitacionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $habitacion = Habitacion::findOrFail($id);
+        $habitacion->update($request->all());
+        return response()->json($habitacion, 200);
     }
 
     /**
@@ -44,6 +50,8 @@ class HabitacionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $habitacion = Habitacion::findOrFail($id);
+        $habitacion->delete();
+        return response()->json(null, 204);
     }
 }

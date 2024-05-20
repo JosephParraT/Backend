@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Pago;
 
 class PagoController extends Controller
 {
@@ -12,7 +13,8 @@ class PagoController extends Controller
      */
     public function index()
     {
-        //
+        $pagos = Pago::all();
+        return response()->json($pagos);
     }
 
     /**
@@ -20,7 +22,8 @@ class PagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pago = Pago::create($request->all());
+        return response()->json($pago, 201);
     }
 
     /**
@@ -28,7 +31,8 @@ class PagoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pago = Pago::findOrFail($id);
+        return response()->json($pago);
     }
 
     /**
@@ -36,7 +40,9 @@ class PagoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pago = Pago::findOrFail($id);
+        $pago->update($request->all());
+        return response()->json($pago, 200);
     }
 
     /**
@@ -44,6 +50,8 @@ class PagoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pago = Pago::findOrFail($id);
+        $pago->delete();
+        return response()->json(null, 204);
     }
 }

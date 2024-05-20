@@ -11,3 +11,6 @@ Route::apiResource('reservas', ReservaController::class);
 Route::apiResource('clientes', ClienteController::class);
 Route::apiResource('servicios-adicionales', ServicioAdicionalController::class);
 Route::apiResource('pagos', PagoController::class);
+
+Route::get('/habitaciones', 'HabitacionController@index');
+Route::get('/reservas', 'ReservaController@index');

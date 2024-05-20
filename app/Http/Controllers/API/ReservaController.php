@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Reserva;
 
 class ReservaController extends Controller
 {
@@ -12,7 +13,8 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        //
+        $reservas = Reserva::all();
+        return response()->json($reservas);
     }
 
     /**
@@ -20,7 +22,8 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reserva = Reserva::create($request->all());
+        return response()->json($reserva, 201);
     }
 
     /**
@@ -28,7 +31,8 @@ class ReservaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $reserva = Reserva::findOrFail($id);
+        return response()->json($reserva);
     }
 
     /**
@@ -36,7 +40,9 @@ class ReservaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $reserva = Reserva::findOrFail($id);
+        $reserva->update($request->all());
+        return response()->json($reserva, 200);
     }
 
     /**
@@ -44,6 +50,8 @@ class ReservaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $reserva = Reserva::findOrFail($id);
+        $reserva->delete();
+        return response()->json(null, 204);
     }
 }
